@@ -1,6 +1,7 @@
 package com.daltonsumrall.game.sprites;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
 
@@ -11,9 +12,10 @@ import com.badlogic.gdx.math.Vector3;
 public class Bird {
     private static final int GRAVITY = -15;
     private static final int MOVEMENT = 100;
+    private Animation birdAnimation;
     private Vector3 position;
     private Vector3 velocity;
-    private Texture bird;
+    private Texture texture;
     private Rectangle bounds;
 
 
@@ -21,13 +23,15 @@ public class Bird {
     public Bird(int x, int y){
         position = new Vector3(x, y, 0);
         velocity = new Vector3(0, 0, 0);
-        bird = new Texture("bird.png");
-        bounds = new Rectangle(x, y, bird.getWidth(), bird.getHeight());
+        texture = new Texture("birdanimation.png");
+        birdAnimation = new Animation(new TextureRegion(texture), 3, 0.5f);
+        bounds = new Rectangle(x, y, texture.getWidth()/3, texture.getHeight()/3);
     }
 
 
 
     public void update(float deltaTime){
+        birdAnimation.update(deltaTime);
         if(position.y > 0){
             velocity.add(0, GRAVITY, 0);
         }
@@ -51,8 +55,8 @@ public class Bird {
 
 
 
-    public Texture getTexture() {
-        return bird;
+    public TextureRegion getTexture() {
+        return birdAnimation.getFrame();
     }
 
 
@@ -62,6 +66,6 @@ public class Bird {
     }
 
     public void dispose(){
-        bird.dispose();
+        texture.dispose();
     }
 }
