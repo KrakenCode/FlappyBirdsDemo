@@ -28,7 +28,7 @@ public class Bird {
         if(position.y < 0){
             position.y = 0;
         }
-        
+
         velocity.scl(1/deltaTime);
     }
 
