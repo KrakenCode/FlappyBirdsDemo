@@ -71,6 +71,9 @@ public class Tube {
         return posBottomTube;
     }
 
-
+    public void dispose(){
+        topTube.dispose();
+        bottomTube.dispose();
+    }
 
 }
