@@ -22,4 +22,5 @@ public abstract class State {
     protected abstract void handleInput();
     public abstract void update(float deltaTime);
     public abstract void render(SpriteBatch spriteBatch);
+    public abstract void dispose();
 }
