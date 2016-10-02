@@ -1,6 +1,8 @@
 package com.daltonsumrall.game.states;
 
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.daltonsumrall.game.FlappyDemo;
 
 
 /**
@@ -8,8 +10,14 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
  */
 
 public class MenuState extends State {
+    private Texture background;
+    private Texture playButton;
+
+
     public MenuState(GameStateManager gsm) {
         super(gsm);
+        background = new Texture("bg.png");
+        playButton = new Texture("playbtn.png");
     }
 
     @Override
@@ -18,12 +26,16 @@ public class MenuState extends State {
     }
 
     @Override
-    public void render(SpriteBatch spriteBatch) {
+    public void update(float deltaTime) {
 
     }
 
     @Override
-    public void update(float deltaTime) {
-
+    public void render(SpriteBatch spriteBatch) {
+        spriteBatch.begin();
+        spriteBatch.draw(background, 0, 0, FlappyDemo.WIDTH, FlappyDemo.HEIGHT);
+        spriteBatch.draw(playButton, (FlappyDemo.WIDTH / 2)-(playButton.getWidth()/2), FlappyDemo.HEIGHT/2);
+        spriteBatch.end();
     }
+
 }
