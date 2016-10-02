@@ -53,8 +53,10 @@ public class PlayState extends State {
             if( (camera.position.x - (camera.viewportWidth/2)) >
                 (tube.getPosTopTube().x + tube.getTopTube().getWidth()) )
             {
-
                 tube.reposition(tube.getPosTopTube().x + ((Tube.TUBE_WIDTH + TUBE_SPACING) * TUBE_COUNT));
+            }
+            if(tube.collides(bird.getBounds())){
+                gsm.set(new PlayState(gsm));
             }
         }
 
