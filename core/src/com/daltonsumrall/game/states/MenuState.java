@@ -5,7 +5,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.daltonsumrall.game.FlappyDemo;
 
-
 /**
  * Created by dalton on 10/2/16.
  */
@@ -21,6 +20,8 @@ public class MenuState extends State {
         playButton = new Texture("playbtn.png");
     }
 
+
+
     @Override
     public void handleInput() {
         if (Gdx.input.justTouched()){
@@ -29,10 +30,14 @@ public class MenuState extends State {
         }
     }
 
+
+
     @Override
     public void update(float deltaTime) {
         handleInput();
     }
+
+
 
     @Override
     public void render(SpriteBatch spriteBatch) {
@@ -42,9 +47,13 @@ public class MenuState extends State {
         spriteBatch.end();
     }
 
+
+
     @Override
     public void dispose() {
         background.dispose();
         playButton.dispose();
     }
+
+
 }
