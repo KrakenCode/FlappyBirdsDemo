@@ -1,15 +1,18 @@
 package com.daltonsumrall.game.states;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.daltonsumrall.game.FlappyDemo;
 import com.daltonsumrall.game.sprites.Bird;
 import com.daltonsumrall.game.sprites.Tube;
 
-import static java.awt.SystemColor.text;
+import static com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.*;
 
 /**
  * Created by dalton on 10/2/16.
@@ -24,18 +27,33 @@ public class PlayState extends State {
     private Texture ground;
     private Vector2 groundPos1, groundPos2;
     private Array<Tube> tubes;
+    private double iScore;
+    private String scoreString;
+    private BitmapFont scoreFont;
+    private FreeTypeFontGenerator generator;
+    private FreeTypeFontParameter parameter;
 
 
 
     public PlayState(GameStateManager gsm) {
         super(gsm);
+
+        /************* Score *************/
+        generator = new FreeTypeFontGenerator(Gdx.files.internal("font.ttf"));
+        parameter = new FreeTypeFontParameter();
+        parameter.size = 20;
+        iScore = 0;
+        scoreString = "0";
+        scoreFont = generator.generateFont(parameter);
+        scoreFont.setUseIntegerPositions(false); //stops score from shaking
+        /*********************************/
+
         bird = new Bird(50, 300);
         camera.setToOrtho(false, FlappyDemo.WIDTH/2, FlappyDemo.HEIGHT/2);
         background = new Texture("bg.png");
         ground = new Texture("ground.png");
         groundPos1 = new Vector2(camera.position.x - (camera.viewportWidth/2), GROUND_Y_OFFSET);
         groundPos2 = new Vector2((camera.position.x - (camera.viewportWidth/2)) + ground.getWidth(), GROUND_Y_OFFSET);
-
         tubes = new Array<Tube>();
         for (int i = 1; i <= TUBE_COUNT; i++){
             tubes.add(new Tube( i * (TUBE_SPACING + Tube.TUBE_WIDTH) ) );
@@ -58,6 +76,8 @@ public class PlayState extends State {
         updateGround();
         bird.update(deltaTime);
         camera.position.x = bird.getPosition().x + 80;
+        iScore+= .1;
+        scoreString = "" + ((int) iScore);
         for(Tube tube: tubes) {
             if( (camera.position.x - (camera.viewportWidth/2)) >
                 (tube.getPosTopTube().x + tube.getTopTube().getWidth()) )
@@ -88,6 +108,9 @@ public class PlayState extends State {
         }
         sb.draw(ground, groundPos1.x, groundPos1.y);
         sb.draw(ground, groundPos2.x, groundPos2.y);
+
+        scoreFont.draw(sb, scoreString, (camera.position.x - (camera.viewportWidth/2)) + 10,
+                camera.viewportHeight - 10);
         sb.end();
     }
 
@@ -100,6 +123,7 @@ public class PlayState extends State {
         for (Tube tube: tubes){
             tube.dispose();
         }
+        generator.dispose();
     }
 
     private void updateGround(){
