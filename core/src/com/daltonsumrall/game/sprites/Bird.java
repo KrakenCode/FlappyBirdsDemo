@@ -1,11 +1,10 @@
 package com.daltonsumrall.game.sprites;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.audio.Sound;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
+import com.daltonsumrall.game.FlappyDemo;
+
 
 /**
  * Created by dalton on 10/2/16.
@@ -14,28 +13,22 @@ import com.badlogic.gdx.math.Vector3;
 public class Bird {
     private static final int GRAVITY = -15;
     private static final int MOVEMENT = 100;
-    private Animation birdAnimation;
     private Vector3 position;
     private Vector3 velocity;
-    private Texture texture;
     private Rectangle bounds;
-    private Sound flap;
 
 
 
     public Bird(int x, int y){
         position = new Vector3(x, y, 0);
         velocity = new Vector3(0, 0, 0);
-        texture = new Texture("birdanimation.png");
-        birdAnimation = new Animation(new TextureRegion(texture), 3, 0.5f);
-        bounds = new Rectangle(x, y, texture.getWidth()/3, texture.getHeight());
-        flap = Gdx.audio.newSound(Gdx.files.internal("sfx_wing.ogg"));
+        bounds = new Rectangle(x, y, FlappyDemo.bird.getWidth()/3, FlappyDemo.bird.getHeight());
     }
 
 
 
     public void update(float deltaTime){
-        birdAnimation.update(deltaTime);
+        FlappyDemo.birdAnimation.update(deltaTime);
         if(position.y > 0){
             velocity.add(0, GRAVITY, 0);
         }
@@ -60,18 +53,17 @@ public class Bird {
 
 
     public TextureRegion getTexture() {
-        return birdAnimation.getFrame();
+        return FlappyDemo.birdAnimation.getFrame();
     }
 
 
 
     public void jump(){
         velocity.y = 250;
-        flap.play(0.5f);
+        FlappyDemo.flap.play(0.5f);
     }
 
     public void dispose(){
-        texture.dispose();
-        flap.dispose();
+
     }
 }

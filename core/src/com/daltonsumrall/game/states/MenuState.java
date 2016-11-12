@@ -10,14 +10,13 @@ import com.daltonsumrall.game.FlappyDemo;
  */
 
 public class MenuState extends State {
-    private Texture background;
     private Texture playButton;
+
+
 
 
     public MenuState(GameStateManager gsm) {
         super(gsm);
-        camera.setToOrtho(false, FlappyDemo.WIDTH/2, FlappyDemo.HEIGHT/2);
-        background = new Texture("bg.png");
         playButton = new Texture("playbtn.png");
     }
 
@@ -43,7 +42,7 @@ public class MenuState extends State {
     public void render(SpriteBatch sb) {
         sb.setProjectionMatrix(camera.combined);
         sb.begin();
-        sb.draw(background, 0, 0);
+        sb.draw(FlappyDemo.background, camera.position.x - (camera.viewportWidth/2), 0);
         sb.draw(playButton, camera.position.x - (playButton.getWidth()/2), camera.position.y);
         sb.end();
     }
@@ -52,7 +51,6 @@ public class MenuState extends State {
 
     @Override
     public void dispose() {
-        background.dispose();
         playButton.dispose();
     }
 
