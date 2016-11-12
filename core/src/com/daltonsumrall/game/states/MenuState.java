@@ -2,6 +2,8 @@ package com.daltonsumrall.game.states;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.daltonsumrall.game.FlappyDemo;
 
@@ -11,13 +13,22 @@ import com.daltonsumrall.game.FlappyDemo;
 
 public class MenuState extends State {
     private Texture playButton;
-
+    private BitmapFont font;
+    private GlyphLayout name;
 
 
 
     public MenuState(GameStateManager gsm) {
         super(gsm);
         playButton = new Texture("playbtn.png");
+
+        FlappyDemo.parameter.size = 20;
+        font = FlappyDemo.generator.generateFont(FlappyDemo.parameter);
+        font.setUseIntegerPositions(false); //stops score from shaking
+
+        name = new GlyphLayout();
+        name.setText(font,"Created by Dalton Sumrall");
+
     }
 
 
@@ -44,6 +55,7 @@ public class MenuState extends State {
         sb.begin();
         sb.draw(FlappyDemo.background, camera.position.x - (camera.viewportWidth/2), 0);
         sb.draw(playButton, camera.position.x - (playButton.getWidth()/2), camera.position.y);
+        font.draw(sb, name, camera.position.x - name.width/2, name.height*2);
         sb.end();
     }
 
@@ -52,6 +64,7 @@ public class MenuState extends State {
     @Override
     public void dispose() {
         playButton.dispose();
+        font.dispose();
     }
 
 
