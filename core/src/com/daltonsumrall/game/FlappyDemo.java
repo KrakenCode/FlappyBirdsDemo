@@ -50,7 +50,6 @@ public class FlappyDemo extends ApplicationAdapter {
         generator = new FreeTypeFontGenerator(Gdx.files.internal("font.ttf"));
         parameter = new FreeTypeFontParameter();
 
-
         gsm.push(new MenuState(gsm));
     }
 
@@ -69,6 +68,14 @@ public class FlappyDemo extends ApplicationAdapter {
 	public void dispose() {
         super.dispose();
         music.dispose();
+        flap.dispose();
+        background.dispose();
+        ground.dispose();
+        bird.dispose();
+        topTube.dispose();
+        bottomTube.dispose();
+        generator.dispose();
+        batch.dispose();
 	}
 
 

@@ -1,6 +1,5 @@
 package com.daltonsumrall.game.states;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
@@ -18,7 +17,6 @@ public class GameOverState extends State {
     private String scoreString;
     private GlyphLayout gameOver;
     private GlyphLayout score;
-
 
 
     public GameOverState(GameStateManager gsm, String scoreString) {
@@ -55,11 +53,6 @@ public class GameOverState extends State {
         sb.draw(FlappyDemo.background, camera.position.x - (camera.viewportWidth/2), 0);
         font.draw(sb, gameOver, camera.position.x - gameOver.width/2, (int)(camera.viewportHeight - camera.position.y*.55));
         font.draw(sb, score, camera.position.x - score.width/2, (int)(camera.viewportHeight - camera.position.y*.75));
-
-
-
-        //font.draw(sb, "Game Over", camera.position.x - 45, camera.position.y + 50);
-        //.draw(sb, scoreString, camera.position.x - 58, camera.position.y + 25);
         sb.end();
     }
 
